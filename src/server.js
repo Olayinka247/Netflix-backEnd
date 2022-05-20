@@ -1,6 +1,7 @@
 import express from "express";
 import listEndpoints from "express-list-endpoints";
 import mediaRouter from "./apis/media/index.js";
+import cors from "cors";
 import {
   badRequestError,
   unauthorizedError,
