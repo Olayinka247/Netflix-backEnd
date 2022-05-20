@@ -1,10 +1,12 @@
 import express from "express";
 import listEndpoints from "express-list-endpoints";
-import mediaRouter from "./apis/media/media.js";
+import mediaRouter from "./apis/media/index.js";
 
 const server = express();
 
-const port = 3001;
+const port = 3002;
+
+server.use(express.json());
 
 server.use("/media", mediaRouter);
 
