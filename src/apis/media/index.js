@@ -16,6 +16,13 @@ import {
   checksUpdateMediasSchema,
 } from "./mediaValidation.js";
 
+import {
+  saveNewReview,
+  findReviewByIdAndDelete,
+} from "../../lib/mf/reviews.js";
+
+import { checkNewReviewSchema } from "./reviewsValidation.js";
+
 const mediaRouter = express.Router();
 
 const cloudinaryUploader = multer({
@@ -118,6 +125,30 @@ mediaRouter.post(
     }
   }
 );
-mediaRouter.delete("/:mediaId", async (req, res, next) => {});
+mediaRouter.post(
+  "/:mediaId/reviews",
+  checkNewReviewSchema,
+  checkValidationResult,
+  async (req, res, next) => {
+    try {
+      const updatedMedia = await saveNewReview(req.params.mediaId, req.body);
+      res.send(updatedMedia);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+mediaRouter.delete("/:mediaId/reviews/:reviewId", async (req, res, next) => {
+  try {
+    const reviews = await findReviewByIdAndDelete(
+      req.params.mediaId,
+      req.params.reviewId
+    );
+    res.send(reviews);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default mediaRouter;
