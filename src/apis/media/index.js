@@ -6,18 +6,48 @@ import {
   saveMedia,
   findMediaById,
   findMediaByIdAndUpdate,
+  findMediaByIdAndDelete,
 } from "../../lib/mf/media.js";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import {
+  checksMediasSchema,
+  checkValidationResult,
+  checksUpdateMediasSchema,
+} from "./mediaValidation.js";
 
 const mediaRouter = express.Router();
 
-mediaRouter.post("/", async (req, res, next) => {
-  try {
-    const imdbID = await saveMedia(req.body);
-    res.status(201).send({ imdbID });
-  } catch (error) {
-    next(error);
+const cloudinaryUploader = multer({
+  storage: new CloudinaryStorage({
+    cloudinary,
+    params: {
+      folder: "netflix/media",
+    },
+  }),
+  fileFilter: (req, file, multerNext) => {
+    if (file.mimetype !== "image/jpeg") {
+      multerNext(createError(400, "Only jpeg or png are allowed!"));
+    } else {
+      multerNext(null, true);
+    }
+  },
+  limits: { fileSize: 1 * 1024 * 1024 }, // file size
+}).single("poster");
+
+mediaRouter.post(
+  "/",
+  checksMediasSchema,
+  checkValidationResult,
+  async (req, res, next) => {
+    try {
+      const imdbID = await saveMedia(req.body);
+      res.status(201).send({ imdbID });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 mediaRouter.get("/", async (req, res, next) => {
   try {
@@ -42,33 +72,52 @@ mediaRouter.get("/:mediaId", async (req, res, next) => {
     next(error);
   }
 });
-mediaRouter.put("/:mediaId", async (req, res, next) => {
-  try {
-    const updatedMedia = await findMediaByIdAndUpdate(
-      req.params.mediaId,
-      req.body
-    );
-    res.send(updatedMedia);
-  } catch (error) {
-    next(error);
+mediaRouter.put(
+  "/:mediaId",
+  checksUpdateMediasSchema,
+  checkValidationResult,
+  async (req, res, next) => {
+    try {
+      const updatedMedia = await findMediaByIdAndUpdate(
+        req.params.mediaId,
+        req.body
+      );
+      res.send(updatedMedia);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 mediaRouter.delete("/:mediaId", async (req, res, next) => {
   try {
-    const medias = await getMedia();
+    // const medias = await getMedia();
 
-    const remainingMedias = medias.filter(
-      (media) => media.imdbID !== req.params.mediaId
-    );
+    // const remainingMedias = medias.filter(
+    //   (media) => media.imdbID !== req.params.mediaId
+    // );
 
-    await writeMedia(remainingMedias);
+    // await writeMedia(remainingMedias);
+    const media = await findMediaByIdAndDelete(req.params.mediaId);
     res.status(204).send();
   } catch (error) {
     next(error);
   }
 });
 
-mediaRouter.post("/:mediaId", async (req, res, next) => {});
+mediaRouter.post(
+  "/:mediaId/poster",
+  cloudinaryUploader,
+  async (req, res, next) => {
+    try {
+      const media = await findMediaByIdAndUpdate(req.params.mediaId, {
+        poster: req.file.path,
+      });
+      res.send();
+    } catch (error) {
+      next("error");
+    }
+  }
+);
 mediaRouter.delete("/:mediaId", async (req, res, next) => {});
 
 export default mediaRouter;

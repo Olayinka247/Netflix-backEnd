@@ -54,7 +54,7 @@ export const checksMediasSchema = checkSchema(mediasSchema);
 
 export const checksUpdateMediasSchema = checkSchema(mediasUpdateSchema);
 
-export const checksValidationResult = (req, res, next) => {
+export const checkValidationResult = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {

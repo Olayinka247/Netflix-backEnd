@@ -47,3 +47,15 @@ export const findMediaByIdAndUpdate = async (mediaId, updates) => {
     throw createError(404, `Media with id ${mediaId} not found!`);
   }
 };
+
+//***************** Function to Delete media by ID************* */
+export const findMediaByIdAndDelete = async (mediaId) => {
+  const medias = await getMedia();
+
+  const remainingMedias = medias.filter((media) => media.imdbID !== mediaId);
+
+  if (medias.length === remainingMedias.length)
+    throw createError(404, `Media with id ${mediaId} not found!`);
+
+  await writeMedia(remainingMedias);
+};
