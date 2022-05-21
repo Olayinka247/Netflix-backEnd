@@ -26,6 +26,7 @@ import { checkNewReviewSchema } from "./reviewsValidation.js";
 
 const mediaRouter = express.Router();
 
+// Uploading Single images using cloudinary
 const cloudinaryUploader = multer({
   storage: new CloudinaryStorage({
     cloudinary,
@@ -43,6 +44,7 @@ const cloudinaryUploader = multer({
   limits: { fileSize: 1 * 1024 * 1024 }, // file size
 }).single("Poster");
 
+// Post new media
 mediaRouter.post(
   "/",
   checksMediasSchema,
@@ -56,6 +58,8 @@ mediaRouter.post(
     }
   }
 );
+
+// get all medias and search media by title (if title is not in the API DB search on OMDB and sync with my API DB) Using Axios or node-fetch
 
 mediaRouter.get("/", async (req, res, next) => {
   try {
@@ -72,7 +76,10 @@ mediaRouter.get("/", async (req, res, next) => {
           `http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&t=${req.query.Title}`
         );
         const newMedia = {
-          ...data,
+          Title: data.Title,
+          Year: data.Year,
+          Type: data.Type,
+          Poster: data.Poster,
           createdAt: new Date(),
           imdbID: uniqid(),
           reviews: [],
@@ -90,6 +97,8 @@ mediaRouter.get("/", async (req, res, next) => {
   }
 });
 
+// get media by ID
+
 mediaRouter.get("/:mediaId", async (req, res, next) => {
   try {
     const media = await findMediaById(req.params.mediaId);
@@ -98,6 +107,8 @@ mediaRouter.get("/:mediaId", async (req, res, next) => {
     next(error);
   }
 });
+
+// edit/update/modify media
 mediaRouter.put(
   "/:mediaId",
   checksUpdateMediasSchema,
@@ -114,6 +125,8 @@ mediaRouter.put(
     }
   }
 );
+
+// delete media by ID
 mediaRouter.delete("/:mediaId", async (req, res, next) => {
   try {
     const media = await findMediaByIdAndDelete(req.params.mediaId);
@@ -123,6 +136,7 @@ mediaRouter.delete("/:mediaId", async (req, res, next) => {
   }
 });
 
+// post new media image by Id
 mediaRouter.post(
   "/:mediaId/poster",
   cloudinaryUploader,
@@ -137,6 +151,8 @@ mediaRouter.post(
     }
   }
 );
+
+// post new reviews
 mediaRouter.post(
   "/:mediaId/reviews",
   checkNewReviewSchema,
@@ -151,6 +167,7 @@ mediaRouter.post(
   }
 );
 
+// delete media REVIEW by ID
 mediaRouter.delete("/:mediaId/reviews/:reviewId", async (req, res, next) => {
   try {
     const reviews = await findReviewByIdAndDelete(

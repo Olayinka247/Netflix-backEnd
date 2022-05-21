@@ -5,6 +5,7 @@ import { getPDFReadableStream } from "../../lib/fs/pdf-tools.js";
 
 const mediaFileRouter = express.Router();
 
+// get convert media review and image into pdf
 mediaFileRouter.get("/:mediaId/pdf", async (req, res, next) => {
   try {
     res.setHeader("Content-Disposition", "attachment; filename=media.pdf");
