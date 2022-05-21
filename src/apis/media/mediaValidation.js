@@ -17,11 +17,11 @@ const mediasSchema = {
       errorMessage: "Type is a compulsory Field",
     },
   },
-  Poster: {
-    isURL: {
-      errorMessage: "Type is a compulsory Field",
-    },
-  },
+  // Poster: {
+  //   isURL: {
+  //     errorMessage: "Type is a compulsory Field",
+  //   },
+  // },
 };
 
 const mediasUpdateSchema = {
@@ -43,11 +43,11 @@ const mediasUpdateSchema = {
     },
     optional: true,
   },
-  Poster: {
-    isURL: {
-      errorMessage: "Type is a compulsory Field",
-    },
-  },
+  // Poster: {
+  //   isURL: {
+  //     errorMessage: "Type is a compulsory Field",
+  //   },
+  // },
 };
 
 export const checksMediasSchema = checkSchema(mediasSchema);

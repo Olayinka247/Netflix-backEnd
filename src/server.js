@@ -1,6 +1,7 @@
 import express from "express";
 import listEndpoints from "express-list-endpoints";
 import mediaRouter from "./apis/media/index.js";
+import mediaFileRouter from "./apis/media/mediaFile.js";
 import cors from "cors";
 import {
   badRequestError,
@@ -34,6 +35,7 @@ server.use(cors(corsOptions));
 server.use(express.json());
 
 server.use("/media", mediaRouter);
+server.use("/mediaFile", mediaFileRouter);
 
 server.use(badRequestError);
 server.use(unauthorizedError);
