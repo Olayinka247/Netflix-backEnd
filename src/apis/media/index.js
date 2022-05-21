@@ -1,4 +1,5 @@
 import express from "express";
+import uniqid from "uniqid";
 import createError from "http-errors";
 import multer from "multer";
 import { getMedia, writeMedia } from "../../lib/fs/tools.js";
@@ -40,7 +41,7 @@ const cloudinaryUploader = multer({
     }
   },
   limits: { fileSize: 1 * 1024 * 1024 }, // file size
-}).single("poster");
+}).single("Poster");
 
 mediaRouter.post(
   "/",
@@ -129,13 +130,6 @@ mediaRouter.put(
 );
 mediaRouter.delete("/:mediaId", async (req, res, next) => {
   try {
-    // const medias = await getMedia();
-
-    // const remainingMedias = medias.filter(
-    //   (media) => media.imdbID !== req.params.mediaId
-    // );
-
-    // await writeMedia(remainingMedias);
     const media = await findMediaByIdAndDelete(req.params.mediaId);
     res.status(204).send();
   } catch (error) {
@@ -149,7 +143,7 @@ mediaRouter.post(
   async (req, res, next) => {
     try {
       const media = await findMediaByIdAndUpdate(req.params.mediaId, {
-        poster: req.file.path,
+        Poster: req.file.path,
       });
       res.send();
     } catch (error) {

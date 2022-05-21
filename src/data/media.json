@@ -3,7 +3,7 @@
     "Title": " Titanic",
     "Year": "2001",
     "Type": "Movie",
-    "Poster": "",
+    "Poster": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1653059436/netflix/media/hqxmfa2axmlkvagt9sfz.jpg",
     "createdAt": "2022-05-20T15:10:13.434Z",
     "imdbID": "3v7oqgdgtwl3ekw6nv",
     "reviews": [
@@ -15,18 +15,16 @@
         "createdAt": "2022-05-21T15:31:53.044Z"
       }
     ],
-    "poster": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1653059436/netflix/media/hqxmfa2axmlkvagt9sfz.jpg",
     "updatedAt": "2022-05-20T15:10:36.322Z"
   },
   {
     "Title": " Lord Of The Rings",
     "Year": "1990",
     "Type": "Movie",
-    "Poster": "",
+    "Poster": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1653059875/netflix/media/f38xm0wkispdp0lgwdio.jpg",
     "createdAt": "2022-05-20T15:11:27.768Z",
     "imdbID": "3v7oqgdgtwl3ekxs0o",
     "reviews": [],
-    "poster": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1653059875/netflix/media/f38xm0wkispdp0lgwdio.jpg",
     "updatedAt": "2022-05-20T15:17:56.377Z"
   },
   {
@@ -51,10 +49,11 @@
     "Title": "Harry Potter and the Chamber of Secrets",
     "Year": "2002",
     "Type": "movie",
-    "Poster": "https://bit.ly/31gVxzb",
+    "Poster": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1653164057/netflix/media/caye2td5gn5daduzalkm.jpg",
     "createdAt": "2022-05-21T14:08:47.160Z",
     "imdbID": "3v7oqgdgtwl3fy50zc",
-    "reviews": []
+    "reviews": [],
+    "updatedAt": "2022-05-21T20:14:17.656Z"
   },
   {
     "Title": "Harry Potter and the Prisoner of Azkaban",
@@ -63,6 +62,49 @@
     "Poster": "https://bit.ly/2QzHt1n",
     "createdAt": "2022-05-21T14:09:14.783Z",
     "imdbID": "3v7oqgdgtwl3fy5man",
+    "reviews": []
+  },
+  {
+    "Title": "Batman",
+    "Year": "1989",
+    "Rated": "PG-13",
+    "Released": "23 Jun 1989",
+    "Runtime": "126 min",
+    "Genre": "Action, Adventure",
+    "Director": "Tim Burton",
+    "Writer": "Bob Kane, Sam Hamm, Warren Skaaren",
+    "Actors": "Michael Keaton, Jack Nicholson, Kim Basinger",
+    "Plot": "The Dark Knight of Gotham City begins his war on crime with his first major enemy being Jack Napier, a criminal who becomes the clownishly homicidal Joker.",
+    "Language": "English, French, Spanish",
+    "Country": "United States, United Kingdom",
+    "Awards": "Won 1 Oscar. 9 wins & 26 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BMTYwNjAyODIyMF5BMl5BanBnXkFtZTYwNDMwMDk2._V1_SX300.jpg",
+    "Ratings": [
+      { "Source": "Internet Movie Database", "Value": "7.5/10" },
+      { "Source": "Rotten Tomatoes", "Value": "72%" },
+      { "Source": "Metacritic", "Value": "69/100" }
+    ],
+    "Metascore": "69",
+    "imdbRating": "7.5",
+    "imdbVotes": "369,700",
+    "imdbID": "3v7oqgda2cl3gbf1ty",
+    "Type": "movie",
+    "DVD": "22 Aug 1997",
+    "BoxOffice": "$251,409,241",
+    "Production": "N/A",
+    "Website": "N/A",
+    "Response": "True",
+    "createdAt": "2022-05-21T20:20:29.829Z",
+    "reviews": []
+  },
+  {
+    "createdAt": "2022-05-21T20:26:38.372Z",
+    "imdbID": "3v7oqgd6lwl3gbmy78",
+    "reviews": []
+  },
+  {
+    "createdAt": "2022-05-21T20:27:14.998Z",
+    "imdbID": "3v7oqgd6lwl3gbnqgm",
     "reviews": []
   }
 ]
