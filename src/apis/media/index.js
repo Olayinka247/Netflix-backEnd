@@ -20,7 +20,7 @@ import {
   saveNewReview,
   findReviewByIdAndDelete,
 } from "../../lib/mf/reviews.js";
-
+import axios from "axios";
 import { checkNewReviewSchema } from "./reviewsValidation.js";
 
 const mediaRouter = express.Router();
@@ -57,20 +57,52 @@ mediaRouter.post(
 );
 
 mediaRouter.get("/", async (req, res, next) => {
+  //   try {
+  //     const medias = await getMedia();
+  //     if (req.query && req.query.Title) {
+  //       const filteredMedia = medias.filter(
+  //         (media) => media.Title === req.query.Title
+  //       );
+  //       res.send(filteredMedia);
+  //     } else {
+  //       res.send(medias);
+  //     }
+  //   } catch (error) {
+  //     next(error);
+  //   }
+
   try {
     const medias = await getMedia();
+    console.log(medias);
     if (req.query && req.query.Title) {
-      const filteredMedia = medias.filter(
+      const foundMedia = medias.find(
         (media) => media.Title === req.query.Title
       );
-      res.send(filteredMedia);
+      if (foundMedia) {
+        res.status(200).json(foundMedia);
+      } else {
+        const { data } = await axios.get(
+          `http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&t=${req.query.Title}`
+        );
+        const newMedia = {
+          ...data,
+          createdAt: new Date(),
+          imdbID: uniqid(),
+          reviews: [],
+        };
+        const medias = await getMedia();
+        medias.push(newMedia);
+        await writeMedia(medias);
+        res.status(200).json(newMedia);
+      }
     } else {
-      res.send(medias);
+      res.status(200).json(medias);
     }
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 });
+
 mediaRouter.get("/:mediaId", async (req, res, next) => {
   try {
     const media = await findMediaById(req.params.mediaId);
