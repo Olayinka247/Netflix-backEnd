@@ -58,20 +58,6 @@ mediaRouter.post(
 );
 
 mediaRouter.get("/", async (req, res, next) => {
-  //   try {
-  //     const medias = await getMedia();
-  //     if (req.query && req.query.Title) {
-  //       const filteredMedia = medias.filter(
-  //         (media) => media.Title === req.query.Title
-  //       );
-  //       res.send(filteredMedia);
-  //     } else {
-  //       res.send(medias);
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-
   try {
     const medias = await getMedia();
     console.log(medias);
