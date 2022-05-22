@@ -1,5 +1,3 @@
-# Netflix-backEnd
-
 ******************************************** NETFLIX BACKEND APP *****************************************
 
 Created the API for a Netflix App
@@ -30,6 +28,29 @@ Export single media as PDF with reviews
 /media/:id/pdf
 
 Search media by title (if it's not found in your search in OMDB and sync with your database) UsING Axios
+
+
+Example:
+
+Searching for Movie Title
+
+exists in my media.json ?
+
+    return movie in response
+
+else
+
+    search that query (batman) in omdbapi
+
+        exist in omdb ?
+
+            put in media.json (push inside of our collection)
+
+            return in response
+
+        else
+
+            return not found
 
 DEPLOYED USING HEROKU
 
