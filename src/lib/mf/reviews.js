@@ -8,6 +8,7 @@ export const saveNewReview = async (mediaId, newReviewData) => {
   if (mediaIndex !== -1) {
     medias[mediaIndex].reviews.push({
       ...newReviewData,
+      imdbID: medias[mediaIndex].imdbID,
       _id: uniqid(),
       createdAt: new Date(),
     });
